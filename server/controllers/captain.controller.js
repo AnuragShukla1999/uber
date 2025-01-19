@@ -12,7 +12,6 @@ export const registerCaptain = async (req, res, next) => {
         return res.status(400).json({ error: error.array() })
     };
 
-
     const { fullname, email, password, vehicle } = req.body;
 
     const isCaptainAlreadyExist = await captainModel.findOne({ email:email });
@@ -20,7 +19,6 @@ export const registerCaptain = async (req, res, next) => {
     if (isCaptainAlreadyExist) {
         return res.status(400).json({ message: 'Captain already exist' });
     };
-
 
     const hashPassword = await captainModel.hashPassword(password);
 
