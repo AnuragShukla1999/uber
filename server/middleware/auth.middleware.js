@@ -1,7 +1,8 @@
 import Token from "../models/blackListTokenModel";
 import captainModel from "../models/captainModel";
 import userModel from "../models/user.model";
-
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 
 export const authUser = async (req, res, next) => {
