@@ -8,11 +8,15 @@ import VehiclePanel from '../components/VehiclePanel';
 import ConfirmRide from '../components/ConfirmRide';
 import LookingForDriver from '../components/LookingForDriver';
 import WaitingForDriver from '../components/WaitingForDriver';
+// import { SocketContext } from '../context/SocketContext';
+
 import { SocketContext } from '../context/SocketContext';
+
 import { useContext } from 'react';
 import { UserDataContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
-import LiveTracking from '../components/LiveTracking';
+// import LiveTracking from '../components/LiveTracking';
+import LiveTracking from '../components/LivingTracking';
 
 const Home = () => {
     const [ pickup, setPickup ] = useState('')
@@ -45,8 +49,6 @@ const Home = () => {
     }, [ user ])
 
     socket.on('ride-confirmed', ride => {
-
-
         setVehicleFound(false)
         setWaitingForDriver(true)
         setRide(ride)
@@ -55,7 +57,7 @@ const Home = () => {
     socket.on('ride-started', ride => {
         console.log("ride")
         setWaitingForDriver(false)
-        navigate('/riding', { state: { ride } }) // Updated navigate to include ride data
+        navigate('/riding', { state: { ride } });
     })
 
 
@@ -71,7 +73,7 @@ const Home = () => {
             })
             setPickupSuggestions(response.data)
         } catch {
-            // handle error
+            console.log('error -----> ', error);
         }
     }
 
@@ -86,7 +88,7 @@ const Home = () => {
             })
             setDestinationSuggestions(response.data)
         } catch {
-            // handle error
+            console.log('error -----> ', error);
         }
     }
 
@@ -176,11 +178,7 @@ const Home = () => {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         })
-
-
-        setFare(response.data)
-
-
+        setFare(response.data);
     }
 
     async function createRide() {
